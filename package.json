@@ -1,0 +1,26 @@
+{
+  "name": "dpexels",
+  "version": "2.0.0",
+  "description": "Desktop app made with electron to download bulk quantity of images from pexels API.",
+  "productName": "dPexelsJS",
+  "main": "./main.js",
+  "scripts": {
+    "start": "APP_DEV=true electron .",
+    "build:linux": "electron-packager . --platform=linux --arch=x64 --out=builds --overwrite --icon='./assets/linux-icons/app_icon_256x256.png'",
+    "build:windows": "electron-packager . --platform=win32 --arch=x64 --out=builds --overwrite --icon='./App/assets/windows-icons/favicon.ico'"
+  },
+  "repository": "https://github.com/TomiVidal99/dPexelsJS.git",
+  "author": "Tomas Vidal <tomi_vidal_99@hotmail.com>",
+  "license": "MIT",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "electron": "^11.2.0",
+    "electron-packager": "^15.2.0"
+  },
+  "build": {
+    "extraResources": [
+      "./**"
+    ]
+  }
+}
