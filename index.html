@@ -1,16 +1,22 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <title>Hello World!</title>
-  </head>
-  <body>
-    <h1>Hello World!</h1>
-    We are using Node.js <span id="node-version"></span>,
-    Chromium <span id="chrome-version"></span>,
-    and Electron <span id="electron-version"></span>.
-  </body>
+    <head>
+        <meta charset="UTF-8">
+        <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">-->
+        <!--<meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">-->
+        <script type="text/javascript" src="./App/scripts/handle_click_events.js"></script>
+        <title id="title" preload-data></title>
+    </head>
+    <body>
+        <form onsubmit="handle_submit(event)">
+            <label id="clientKeyLabel" preload-data></label>
+            <input id="clientKey" preload-data stored-data onblur="handle_client_key(this)">
+            <hr>
+            <label id="queryWordsLabel" preload-data></label>
+            <input id="queryWords" preload-data>
+            <hr>
+            <button id="submitButton" preload-data onclick="handle_submit(event)"></button>
+        </form>
+        <div id="photos"></div>
+    </body>
 </html>

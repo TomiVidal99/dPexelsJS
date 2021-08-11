@@ -1,0 +1,18 @@
+{
+    "preload": {
+        "TITLE": {
+            "title": "dPexels"
+        },
+        "LABEL": {
+            "clientKeyLabel": "Key",
+            "queryWordsLabel": "Search"
+        },
+        "INPUT": {
+            "clientKey": "insert your client key",
+            "queryWords": "enter query"
+        },
+        "BUTTON": {
+            "submitButton": "submit"
+        }
+    }
+}
