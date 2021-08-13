@@ -4,19 +4,53 @@
         <meta charset="UTF-8">
         <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">-->
         <!--<meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">-->
+        <link href="./App/styles/index.css" rel="stylesheet">
         <script type="text/javascript" src="./App/scripts/handle_click_events.js"></script>
-        <title id="title" preload-data></title>
+        <title id="appTitle" preload-data></title>
     </head>
     <body>
+        <div id="titleContainer">
+            <h1 id="title" preload-data></h1>
+            <p id="description" preload-data></p>
+        </div>
         <form onsubmit="handle_submit(event)">
-            <label id="clientKeyLabel" preload-data></label>
-            <input id="clientKey" preload-data stored-data onblur="handle_client_key(this)">
-            <hr>
-            <label id="queryWordsLabel" preload-data></label>
-            <input id="queryWords" preload-data>
-            <hr>
-            <button id="submitButton" preload-data onclick="handle_submit(event)"></button>
+            <div class="inputContainer">
+                <label id="clientKeyLabel" preload-data></label>
+                <input type="text" class="custom-input" id="clientKey" preload-data stored-data onblur="handle_client_key(this)">
+            </div>
+            <div class="inputContainer">
+                <label id="queryWordsLabel" preload-data></label>
+                <input type="text" class="custom-input" id="queryWords" preload-data onblur="handle_get_preview()" onkeyup="handle_get_preview()">
+            </div>
+            <div class="inputContainer" id="sizeContainer">
+                <label id="sizeLabel" preload-data></label>
+                <select class="custom-select" id="sizeSelect" onchange="handle_size_select(event, this)">
+                    <option>original</option>
+                    <option selected >large2x</option>
+                    <option>large</option>
+                    <option>medium</option>
+                    <option>small</option>
+                    <option>portrait</option>
+                    <option>landscape</option>
+                    <option>tiny</option>
+                </select>
+            </div>
+            <div class="d-none" id="previewWrapper">
+                <h5 id="previewLabel" preload-data></h5>
+                <div id="previewContainer">
+                    <img src="https://images.pexels.com/photos/9198/nature-sky-twilight-grass-9198.jpg?auto=compress&amp;cs=tinysrgb&amp;h=350" alt="Skitterphoto">
+                </div>
+            </div>
+            <!--<button id="destinationFolder" preload-data onclick="handle_destination_folder(event, this)" value="./DOWNLOADS/"></button>-->
+            <!--<button id="downloadButton" preload-data onclick="handle_download(event)"></button>-->
+            <a href="#0" class="btn" onclick="handle_destination_folder(event, this)" value="./DOWNLOADS/">
+                <span id="destinationFolder" preload-data></span>
+                <div class="transition"></div>
+            </a>
+            <a href="#0" class="btn" onclick="handle_download(event)">
+                <span id="downloadButton" preload-data></span>
+                <div class="transition"></div>
+            </a>
         </form>
-        <div id="photos"></div>
     </body>
 </html>

@@ -1,18 +1,29 @@
 {
     "preload": {
         "TITLE": {
-            "title": "dPexels"
+            "appTitle": "dPexels"
         },
         "LABEL": {
             "clientKeyLabel": "Key",
-            "queryWordsLabel": "Search"
+            "queryWordsLabel": "Search",
+            "sizeLabel": "Images size"
         },
         "INPUT": {
             "clientKey": "insert your client key",
             "queryWords": "enter query"
         },
-        "BUTTON": {
-            "submitButton": "submit"
+        "SPAN": {
+            "downloadButton": "Download",
+            "destinationFolder": "Pick destination folder"
+        },
+        "H1": {
+            "title": "dPexels"
+        },
+        "P": {
+            "description": "Download all the images from pexels API!"
+        },
+        "H5": {
+            "previewLabel": "Preview"
         }
     }
 }

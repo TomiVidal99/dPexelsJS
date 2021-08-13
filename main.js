@@ -1,20 +1,26 @@
 const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')
+const isDev = process.env.APP_DEV ? (process.env.APP_DEV.trim() == "true") : false
 
 // modify your existing createWindow() function
 function createWindow() {
-  const win = new BrowserWindow({
-    width: 800,
-    height: 600,
-    webPreferences: {
-        nodeIntegration: true,
-        contextIsolation: false,
-        enableRemoteModule: true,
-        preload: path.join(app.getAppPath(), 'preload.js')
-    }
-  })
+    const win = new BrowserWindow({
+        width: 800,
+        height: 600,
+        devTools: true,
+        webPreferences: {
+            nodeIntegration: true,
+            contextIsolation: false,
+            enableRemoteModule: true,
+            preload: path.join(app.getAppPath(), 'preload.js')
+        }
+    })
 
-  win.loadFile('index.html')
+     if (!isDev) {
+        win.removeMenu()
+     }
+
+    win.loadFile('index.html')
 }
 
 app.whenReady().then(() => {
