@@ -5,8 +5,8 @@ const isDev = process.env.APP_DEV ? (process.env.APP_DEV.trim() == "true") : fal
 // modify your existing createWindow() function
 function createWindow() {
     const win = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 600,
+        height: 900,
         devTools: true,
         webPreferences: {
             nodeIntegration: true,

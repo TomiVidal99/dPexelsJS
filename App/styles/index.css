@@ -39,6 +39,7 @@ form {
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 5vh;
+    overflow-x: clip;
 }
 
 form > * {
@@ -54,11 +55,13 @@ form > * {
     font-size: xxx-large;
     width: 100%;
     text-align: center;
+    overflow-x: hidden;
 }
 #description {
     font-size: x-large;
     width: 100%;
     text-align: center;
+    overflow-x: hidden;
 }
 
 .inputContainer {
@@ -70,7 +73,7 @@ form > * {
     margin-top: 10px;
     margin-bottom: 20px;
 }
-.inputContainer > label {
+.inputContainer > label:first-child {
     font-size: larger;
     font-weight: bolder;
     width: auto;
@@ -238,6 +241,142 @@ button {
 
 /*custom select*/
 /*some styling same as the 'custom-input' class*/
-.custom-select {
+.cselect select {
+    appearance: none;
+}
+.cselect::after {
+    content: "\25b6";
+}
+.cselect {
+    position: relative;
+}
+.cselect::after {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+.cselect select {
+    width: 100%;
+}
+.cselect, .cselect::after, .cselect select {
+    padding: 10px 10px;
+}
+.cselect::after {
+    width: 40px;
+}
+.cselect select {
     text-align: center;
+    color: #fff;
+    font-size: larger;
+    border-radius: var(--border-radius);
+    border: 1px solid #fff;
+    background: var(--c2);
+    padding: 10px 80px;
+}
+.cselect::after {
+    color: #fff;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+.cselect::after { transition: all 0.3s; }
+.cselect:hover::after {
+    transform: rotate(90deg);
+}
+.cselect select:active,
+.cselect select:focus,
+.cselect select:hover {
+    outline: none;
+} 
+.cselect select:active {
+    border-top-left-radius: none;
+}
+
+/*style for the range slider*/
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 70%;
+}
+.box-minmax{
+    margin-top: 30px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    font-size: larger;
+    color: #FFFFFF;
+}
+.box-minmax span:first-child{
+    margin-left: 10px;
+}
+.range-slider {
+    margin-top: 80px;
+    width: 100%;
+}
+.rs-range {
+    margin-top: 29px;
+    width: 100%;
+    -webkit-appearance: none;
+}
+.rs-range:focus {
+    outline: none;
+}
+.rs-range::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 1px;
+    cursor: pointer;
+    box-shadow: none;
+    background: #ffffff;
+    border-radius: 0px;
+    border: 0px solid #010101;
+}
+.rs-range::-moz-range-track {
+    width: 100%;
+    height: 1px;
+    cursor: pointer;
+    box-shadow: none;
+    background: #ffffff;
+    border-radius: 0px;
+    border: 0px solid #010101;
+}
+.rs-range::-webkit-slider-thumb {
+        box-shadow: none;
+        border: 0px solid #ffffff;
+        box-shadow: 0px 10px 10px rgba(0,0,0,0.25);
+        height: 42px;
+        width: 22px;
+        border-radius: 22px;
+        background: #fff;
+        cursor: pointer;
+        margin-top: -20px;
+}
+.rs-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 5vh;
+    height: 5vh;
+    background: transparent;
+    border-radius: 50%;
+    line-height: 30px;
+    text-align: center;
+    font-weight: bold;
+    box-sizing: border-box;
+    border: 2px solid #fff;
+    margin-right: auto;
+    margin-left: auto;
+    color: #fff;
+    font-style: normal;
+    font-size: larger;
+}
+.rs-label::after {
+    content: "";
+    display: block;
+    font-size: 20px;
+    letter-spacing: 0.07em;
+    margin-top: -2px;
 }

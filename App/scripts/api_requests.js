@@ -1,8 +1,8 @@
 const { createClient } = require('pexels')
 
-function query_data(clientKey, query) {
+function query_data(clientKey, query, perPage) {
     const client = createClient(clientKey);
-    return client.photos.search({ query, per_page: 1 })
+    return client.photos.search({ query, per_page: perPage })
         .then( (photos) => {
             return(photos)
         });

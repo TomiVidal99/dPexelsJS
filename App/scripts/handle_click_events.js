@@ -17,7 +17,7 @@ function helper_get_query() {
     if (query == '') {
         helper_display_preview()
     }
-    return(query_data(clientKey, query))
+    return(query_data(clientKey, query, 1))
 }
 
 function helper_display_preview() {
@@ -29,8 +29,25 @@ function helper_display_preview() {
     }
 }
 
+function helper_display_slider() {
+    const slider_element = document.getElementById('slider')
+    if (slider_element.classList.contains('d-none')) {
+        slider_element.classList.remove('d-none')
+    } else {
+        slider_element.classList.add('d-none')
+    }
+}
+
+function helper_set_max_photos(max) {
+    const label_element = document.getElementById('photosMax')
+    const range_element = document.getElementById('rs-range-line')
+    range_element.setAttribute('max', max)
+    label_element.innerText = max
+}
+
 function handle_get_preview() {
     helper_get_query().then( (data) => {
+        console.log(data)
         const url = data.photos[0].src.medium
         const author = data.photos[0].photographer
         const preview_element = document.getElementById('previewContainer')
@@ -43,6 +60,9 @@ function handle_get_preview() {
         }
         helper_display_preview()
         preview_element.appendChild(img)
+        const totalResults = data.total_results
+        helper_set_max_photos(totalResults)
+        helper_display_slider()
     })
 }
 
