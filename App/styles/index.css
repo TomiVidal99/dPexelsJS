@@ -1,0 +1,382 @@
+:root {
+    --first-color: black;
+    --top-color: #4A13A1;
+    --bottom-color: #030F52;
+    --c1: #20bf55;
+    --c2: #01baef;
+    --background: var(--c1);
+    --foreground: linear-gradient(0deg, var(--c1) 0%, var(--c2) 80%);
+    --button-1: #80ffd3;
+    --button-2: var(--c2);
+    --border-radius: 50px;
+    --background-preview: var(--c1);
+}
+
+html {
+    background-color: var(--background);
+}
+
+body {
+    height: auto;
+    width: auto;
+    margin: 4vh 20vw;
+    padding: .5vh 2vw 3vh 2vw;
+    border: none;
+    box-shadow: 2px -2px 65px var(--first-color);
+    border-radius: 5px;
+    background-image: var(--foreground);
+}
+
+body > * {
+    display: flex;
+    align-items: center;
+}
+
+form {
+    flex-direction: column;
+    height: auto;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5vh;
+    overflow-x: clip;
+}
+
+form > * {
+    margin-bottom: 1vh;
+}
+
+#titleContainer {
+    flex-direction: column;
+    margin-bottom: calc(5px + 1.5vh);
+}
+
+#title {
+    font-size: xxx-large;
+    width: 100%;
+    text-align: center;
+    overflow-x: hidden;
+}
+#description {
+    font-size: x-large;
+    width: 100%;
+    text-align: center;
+    overflow-x: hidden;
+}
+
+.inputContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+.inputContainer > label:first-child {
+    font-size: larger;
+    font-weight: bolder;
+    width: auto;
+}
+.inputContainer > input, .inputContainer > select {
+    width: auto;
+    max-width: 30vw;
+    font-size: larger;
+}
+
+.inputContainer > select {
+    text-align-last: center;
+    width: 100%;
+}
+
+#previewWrapper {
+    flex-direction: column;
+    justify-items: center;
+    justify-content: center;
+    min-width: 10vw;
+    margin-top: .8h;
+    margin-bottom: .8vh;
+    background: var(--background-preview);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+#previewLabel {
+    height: 2vh;
+    width: 100%;
+    text-align: center;
+    margin: 0.5vh;
+}
+
+#previewContainer {
+    margin: 0;
+    padding: 0;
+}
+
+#previewContainer > img {
+    width: 100%;
+    height: 100%;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+button {
+    margin-top: 0.8vh;
+    margin-bottom: 0.8vh;
+    font-size: 1.2rem;
+}
+
+.d-none {
+    display: none !important;
+}
+
+/*custom buttons*/
+
+.btn {
+    top: 40px;
+    font-family: "proxima-nova", sans-serif;
+    font-weight: 500;
+    font-size: 13px;
+    text-transform: uppercase!important;
+    letter-spacing: 2px;
+    color: #fff;
+    cursor: hand;
+    text-align: center;
+    text-transform: capitalize;
+    border: 1px solid #fff;
+    border-radius: var(--border-radius);
+    position: relative;
+    overflow: hidden!important;
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+    background: transparent!important;
+    z-index: 10;
+    padding: 15px 100px;
+    margin: 10px 4px;
+    text-transform: uppercase;
+    text-align: center;
+    position: relative;
+    text-decoration: none;
+    display: inline-block;
+    top: 40px;
+}
+
+
+.btn:hover {
+    border: 1px solid var(--button-2);
+	  color: var(--button-1) !important;
+}
+.btn::before {
+    content: '';
+    width: 0%;
+    height: 100%;
+    display: block;
+    background: var(--button-2);
+    position: absolute;
+	  -ms-transform: skewX(-20deg);
+    -webkit-transform: skewX(-20deg); 
+    transform: skewX(-20deg);   
+    left: -10%;
+    opacity: 1;
+    top: 0;
+    z-index: -12;
+    -moz-transition: all .7s cubic-bezier(0.77, 0, 0.175, 1);
+    -o-transition: all .7s cubic-bezier(0.77, 0, 0.175, 1);
+    -webkit-transition: all .7s cubic-bezier(0.77, 0, 0.175, 1);
+    transition: all .7s cubic-bezier(0.77, 0, 0.175, 1);
+	box-shadow:2px 0px 14px rgba(0,0,0,.6);
+  } 
+
+.btn::after {
+    content: '';
+    width: 0%;
+    height: 100%;
+    display: block;
+    background: var(--button-1);
+    position: absolute;
+	-ms-transform: skewX(-20deg);
+    -webkit-transform: skewX(-20deg); 
+    transform: skewX(-20deg);   
+    left: -10%;
+    opacity: 0;
+    top: 0;
+    z-index: -15;
+    -webkit-transition: all .94s cubic-bezier(.2,.95,.57,.99);
+    -moz-transition: all .4s cubic-bezier(.2,.95,.57,.99);
+    -o-transition: all .4s cubic-bezier(.2,.95,.57,.99);
+    transition: all .4s cubic-bezier(.2,.95,.57,.99);
+    box-shadow: 2px 0px 14px rgba(0,0,0,.6);
+}
+.btn:hover::before, .btn:hover::before {
+	opacity:1;
+	width: 116%;
+}
+.btn:hover::after, .btn:hover::after {
+	opacity:1;
+	width: 120%;
+}
+
+/*customs inputs*/
+.custom-input, .custom-select {
+    border-radius: var(--border-radius);
+    text-align: center;
+    border: 1px solid #fff;
+    margin-top: 10px;
+    padding: 10px 30px;
+    color: #fff;
+    background-color: var(--c2);
+}
+.custom-input:focus, .custom-select:focus {
+    outline: none;
+}
+.custom-input::placeholder {
+    color: #fff;
+    opacity: .45;
+}
+.custom-input:hover::placeholder {
+    opacity: .75;
+}
+
+/*custom select*/
+/*some styling same as the 'custom-input' class*/
+.cselect select {
+    appearance: none;
+}
+.cselect::after {
+    content: "\25b6";
+}
+.cselect {
+    position: relative;
+}
+.cselect::after {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+.cselect select {
+    width: 100%;
+}
+.cselect, .cselect::after, .cselect select {
+    padding: 10px 10px;
+}
+.cselect::after {
+    width: 40px;
+}
+.cselect select {
+    text-align: center;
+    color: #fff;
+    font-size: larger;
+    border-radius: var(--border-radius);
+    border: 1px solid #fff;
+    background: var(--c2);
+    padding: 10px 80px;
+}
+.cselect::after {
+    color: #fff;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+.cselect::after { transition: all 0.3s; }
+.cselect:hover::after {
+    transform: rotate(90deg);
+}
+.cselect select:active,
+.cselect select:focus,
+.cselect select:hover {
+    outline: none;
+} 
+.cselect select:active {
+    border-top-left-radius: none;
+}
+
+/*style for the range slider*/
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 70%;
+}
+.box-minmax{
+    margin-top: 30px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    font-size: larger;
+    color: #FFFFFF;
+}
+.box-minmax span:first-child{
+    margin-left: 10px;
+}
+.range-slider {
+    margin-top: 80px;
+    width: 100%;
+}
+.rs-range {
+    margin-top: 29px;
+    width: 100%;
+    -webkit-appearance: none;
+}
+.rs-range:focus {
+    outline: none;
+}
+.rs-range::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 1px;
+    cursor: pointer;
+    box-shadow: none;
+    background: #ffffff;
+    border-radius: 0px;
+    border: 0px solid #010101;
+}
+.rs-range::-moz-range-track {
+    width: 100%;
+    height: 1px;
+    cursor: pointer;
+    box-shadow: none;
+    background: #ffffff;
+    border-radius: 0px;
+    border: 0px solid #010101;
+}
+.rs-range::-webkit-slider-thumb {
+        box-shadow: none;
+        border: 0px solid #ffffff;
+        box-shadow: 0px 10px 10px rgba(0,0,0,0.25);
+        height: 42px;
+        width: 22px;
+        border-radius: 22px;
+        background: #fff;
+        cursor: pointer;
+        margin-top: -20px;
+}
+.rs-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 5vh;
+    height: 5vh;
+    background: transparent;
+    border-radius: 50%;
+    line-height: 30px;
+    text-align: center;
+    font-weight: bold;
+    box-sizing: border-box;
+    border: 2px solid #fff;
+    margin-right: auto;
+    margin-left: auto;
+    color: #fff;
+    font-style: normal;
+    font-size: larger;
+}
+.rs-label::after {
+    content: "";
+    display: block;
+    font-size: 20px;
+    letter-spacing: 0.07em;
+    margin-top: -2px;
+}

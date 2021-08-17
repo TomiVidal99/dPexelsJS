@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">-->
+        <!--<meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">-->
+        <link href="./App/styles/index.css" rel="stylesheet">
+        <script type="text/javascript" src="./App/scripts/handle_click_events.js"></script>
+        <script defer type="text/javascript" src="./App/scripts/event_listeners.js"></script>
+        <title id="appTitle" preload-data></title>
+    </head>
+    <body>
+        <div id="titleContainer">
+            <h1 id="title" preload-data></h1>
+            <p id="description" preload-data></p>
+        </div>
+        <form onsubmit="handle_submit(event)">
+            <div class="inputContainer">
+                <label id="clientKeyLabel" preload-data></label>
+                <input type="text" class="custom-input" id="clientKey" preload-data stored-data onblur="handle_client_key(this)">
+            </div>
+            <div class="inputContainer">
+                <label id="queryWordsLabel" preload-data></label>
+                <input type="text" class="custom-input" id="queryWords" preload-data onkeyup="handle_get_preview()">
+            </div>
+            <div class="inputContainer" id="sizeContainer">
+                <label id="sizeLabel" preload-data></label>
+                <div class="cselect" id="sizeSelect" onchange="handle_size_select(event, this)">
+                    <select id="imageSize">
+                        <option>original</option>
+                        <option selected >large2x</option>
+                        <option>large</option>
+                        <option>medium</option>
+                        <option>small</option>
+                        <option>portrait</option>
+                        <option>landscape</option>
+                        <option>tiny</option>
+                    </select>
+                </div>
+            </div>
+            <div class="d-none" id="previewWrapper">
+                <h5 id="previewLabel" preload-data></h5>
+                <div id="previewContainer">
+                    <img src="https://images.pexels.com/photos/9198/nature-sky-twilight-grass-9198.jpg?auto=compress&amp;cs=tinysrgb&amp;h=350" alt="Skitterphoto">
+                </div>
+            </div>
+            <a href="#0" class="btn" onclick="handle_destination_folder(event, this)">
+                <span id="destinationFolder" preload-data value="./DOWNLOADS/"></span>
+                <div class="transition"></div>
+            </a>
+            <div id="slider" class="container d-none">
+                <div class="range-slider">
+                    <span id="rs-bullet" class="rs-label">0</span>
+                    <input id="rs-range-line" class="rs-range" type="range" value="0" min="0" max="200">
+                </div>
+                <div class="box-minmax">
+                    <span id="photosMin">0</span>
+                    <span id="photosMax">0</span>
+                </div>
+            </div>
+            <a href="#0" class="btn" onclick="handle_download(event)">
+                <span id="downloadButton" preload-data></span>
+                <div class="transition"></div>
+            </a>
+        </form>
+    </body>
+</html>
