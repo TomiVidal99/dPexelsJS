@@ -26,7 +26,7 @@
             <div class="inputContainer" id="sizeContainer">
                 <label id="sizeLabel" preload-data></label>
                 <div class="cselect" id="sizeSelect" onchange="handle_size_select(event, this)">
-                    <select>
+                    <select id="imageSize">
                         <option>original</option>
                         <option selected >large2x</option>
                         <option>large</option>
@@ -44,8 +44,8 @@
                     <img src="https://images.pexels.com/photos/9198/nature-sky-twilight-grass-9198.jpg?auto=compress&amp;cs=tinysrgb&amp;h=350" alt="Skitterphoto">
                 </div>
             </div>
-            <a href="#0" class="btn" onclick="handle_destination_folder(event, this)" value="./DOWNLOADS/">
-                <span id="destinationFolder" preload-data></span>
+            <a href="#0" class="btn" onclick="handle_destination_folder(event, this)">
+                <span id="destinationFolder" preload-data value="./DOWNLOADS/"></span>
                 <div class="transition"></div>
             </a>
             <div id="slider" class="container d-none">

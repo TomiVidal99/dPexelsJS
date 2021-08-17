@@ -13,6 +13,7 @@
   "author": "Tomas Vidal <tomi_vidal_99@hotmail.com>",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.21.1",
     "pexels": "^1.2.1"
   },
   "devDependencies": {

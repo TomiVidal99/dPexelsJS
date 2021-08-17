@@ -1,7 +1,7 @@
 // this file contains all the handler functions for the page
 const { ipcRenderer } = require('electron')
 const { dialog } = require('electron').remote
-const { query_data } = require('./App/scripts/api_requests.js')
+const { query_data, download_image } = require('./App/scripts/api_requests.js')
 
 function handle_client_key(element) {
     const newKey = element.value
@@ -10,14 +10,14 @@ function handle_client_key(element) {
     localStorage.setItem('clientKey', newKey)
 }
 
-function helper_get_query() {
+function helper_get_query(totalImages, pageNumber) {
     const clientKey = document.getElementById('clientKey').value
     const query = document.getElementById('queryWords').value
     console.log("searched: ", query)
     if (query == '') {
         helper_display_preview()
     }
-    return(query_data(clientKey, query, 1))
+    return(query_data(clientKey, query, totalImages ? totalImages : 1, pageNumber ? pageNumber : 1))
 }
 
 function helper_display_preview() {
@@ -46,7 +46,7 @@ function helper_set_max_photos(max) {
 }
 
 function handle_get_preview() {
-    helper_get_query().then( (data) => {
+    helper_get_query(null, null).then( (data) => {
         console.log(data)
         const url = data.photos[0].src.medium
         const author = data.photos[0].photographer
@@ -89,8 +89,41 @@ function handle_destination_folder(event, element) {
     })
 }
 
+function helper_download_photos(amount, destination, imageSize) {
+    const totalPagesIterations = Math.ceil(amount/80)
+    for (let pageNumber = 1; pageNumber < (totalPagesIterations+1); pageNumber++) {
+        const totalAmount = amount - pageNumber*80
+        helper_get_query(amount, pageNumber).then( (data) => {
+
+            console.log('download all the images')
+            console.log(data)
+
+            // should download the photos
+            data.photos.forEach( (photo) => {
+                const photoURL = photo.src[imageSize]
+                //console.log(photo, destination)
+                download_image(photoURL, destination)
+            })
+
+        })
+    }
+}
+
 function handle_download(event) {
     // TODO
     event.preventDefault()
-    helper_get_query()
+    helper_get_query(null).then( (data) => {
+        console.log('handle download')
+        const photosAmount = document.getElementById('rs-range-line').max
+
+        if (photosAmount == 0) return // TODO: display error log saying that you need to select the amount of photos on the range slider
+
+        const destinationPath = document.getElementById('destinationFolder').getAttribute('value')
+        if (destinationPath == './DOWNLOADS/') console.log('default download path') // TODO: display message saying that is recommended to select a destination path, else will download to default path './DOWNLOADS/'
+
+        const imageSize = document.getElementById('imageSize').selectedOptions[0].innerText
+
+        helper_download_photos(photosAmount, destinationPath, imageSize)
+
+    })
 }
