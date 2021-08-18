@@ -1,7 +1,10 @@
 // this file contains all the handler functions for the page
 const { ipcRenderer } = require('electron')
 const { dialog } = require('electron').remote
-const { query_data, download_image } = require('./App/scripts/api_requests.js')
+const { query_data } = require('./App/scripts/api_requests.js')
+
+// defined globally so dont have to be requesting it all the time
+let QUERY
 
 function handle_client_key(element) {
     const newKey = element.value
@@ -13,6 +16,7 @@ function handle_client_key(element) {
 function helper_get_query(totalImages, pageNumber) {
     const clientKey = document.getElementById('clientKey').value
     const query = document.getElementById('queryWords').value
+    QUERY = query
     console.log("searched: ", query)
     if (query == '') {
         helper_display_preview()
@@ -89,32 +93,42 @@ function handle_destination_folder(event, element) {
     })
 }
 
-function helper_download_photos(amount, destination, imageSize) {
-    const totalPagesIterations = Math.ceil(amount/80)
-    for (let pageNumber = 1; pageNumber < (totalPagesIterations+1); pageNumber++) {
-        const totalAmount = amount - pageNumber*80
-        helper_get_query(amount, pageNumber).then( (data) => {
-
-            console.log('download all the images')
-            console.log(data)
-
-            // should download the photos
-            data.photos.forEach( (photo) => {
-                const photoURL = photo.src[imageSize]
-                //console.log(photo, destination)
-                download_image(photoURL, destination)
-            })
-
+function helper_download_photos(amount, destination, imageSize, pageNumber) {
+    console.log(amount, pageNumber)
+    helper_get_query(amount, pageNumber).then( (data) => {
+        // TODO: change the size of the image accordingly
+        console.log('download all the images')
+        console.log(data)
+        
+        // should download the photos
+        const photos = data.photos
+        photos.forEach( (photo) => {
+            const photoURL = photo.src[imageSize]
+            const filename = photo.photographer+'-W'+photo.width+'-H'+photo.height
+            ipcRenderer.send('download-image', photoURL, destination, filename, QUERY)
         })
-    }
+
+        // if theres still photos to download go to the next page and keep downloading
+        const newAmount = amount - photos.length
+        if (newAmount > 0) {
+            helper_download_photos(newAmount, destination, imageSize, pageNumber+1)
+        }
+
+    })
 }
+// handle the response and update progress bar
+ipcRenderer.on('image-downloaded', (event, args) => {
+    if (args == 'error') throw 'error'
+    console.count(args)
+})
 
 function handle_download(event) {
     // TODO
     event.preventDefault()
     helper_get_query(null).then( (data) => {
         console.log('handle download')
-        const photosAmount = document.getElementById('rs-range-line').max
+        const maxPhotos = data.total_results
+        const photosAmount = parseInt(document.getElementById('rs-bullet').innerText)
 
         if (photosAmount == 0) return // TODO: display error log saying that you need to select the amount of photos on the range slider
 
@@ -123,7 +137,10 @@ function handle_download(event) {
 
         const imageSize = document.getElementById('imageSize').selectedOptions[0].innerText
 
-        helper_download_photos(photosAmount, destinationPath, imageSize)
+        // in case of bug it will default to the max of photos
+        if (photosAmount > maxPhotos) photosAmount = maxPhotos
+
+        helper_download_photos(photosAmount, destinationPath, imageSize, 1)
 
     })
 }
